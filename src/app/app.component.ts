@@ -1,6 +1,6 @@
 import { NgFor } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NgForm, NgModel } from '@angular/forms';
 import { countries } from './const/countries';
 import { states } from './const/states';
 
@@ -25,11 +25,30 @@ export class AppComponent implements OnInit {
   countries: Array<string> = countries
   states: Array<string> = states
   @ViewChild('signUpForm') signUpForm!: NgForm
+  @ViewChild('password') password!: NgModel
+  @ViewChild('password') confirmPassword!: NgModel
+
+  isPassSame: boolean = false
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.passwordmatch()
+  }
+
+  passwordmatch(){
+    this.password.valueChanges
+    ?.subscribe(res => {
+      if(this.password === this.confirmPassword){
+        this.isPassSame = true
+      }
+    })!
+  }
 
   onSubmit(){
-
+    console.log(this.signUpForm.value);
+    if(this.signUpForm.valid){
+      console.log(this.signUpForm.value);
+    }
   }
 }

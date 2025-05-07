@@ -68,22 +68,135 @@
                             </strong>
                         </div>
 
-                        <div class="form-group">
-                            <label for="form-label d-block">Gender</label>
+                        <div class="form-group d-flex align-items-center">
+                            <label for="form-label d-block">Gender : </label>
 
-                            <div class="form-check form-check-inline">
-                                <input type="radio" name="male" value="male" id="male" #gender="ngModel" required ngModel class="form-check-input">
+                            <div class="form-check form-check-inline ml-4">
+                                <input type="radio" name="gender" value="male" id="male" #gender="ngModel" required
+                                    ngModel class="form-check-input">
                                 <label class="form-check-label" for="male">
                                     Male
                                 </label>
                             </div>
+
                             <div class="form-check form-check-inline">
-                                <input type="radio" name="female" value="female" id="female" #gender="ngModel" required ngModel class="form-check-input">
+                                <input type="radio" name="gender" value="female" id="female" #gender="ngModel" required
+                                    ngModel class="form-check-input">
                                 <label class="form-check-label" for="female">
                                     Female
                                 </label>
                             </div>
+
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="gender" value="other" id="other" #gender="ngModel" required
+                                    ngModel class="form-check-input">
+                                <label class="form-check-label" for="other">
+                                    Other
+                                </label>
+                            </div>
+                            <strong *ngIf="gender.touched && gender.hasError('required')">
+                                Gender is required
+                            </strong>
                         </div>
+
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="country">Country</label>
+                                    <select required ngModel #country="ngModel" class="form-control" name="country"
+                                        id="country">
+                                        <option *ngFor="let c of countries" [value]="c">{{c}}</option>
+                                    </select>
+                                    <strong *ngIf="country.touched && country.hasError('required')" class="text-danger">
+                                        Country is required
+                                    </strong>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="state">State</label>
+                                    <select required ngModel #state="ngModel" class="form-control" name="state"
+                                        id="state">
+                                        <option *ngFor="let s of states" [value]="s">{{s}}</option>
+                                    </select>
+                                    <strong *ngIf="state.touched && state.hasError('required')" class="text-danger">
+                                        State is required
+                                    </strong>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="city">City</label>
+                                    <input type="text" required ngModel #city="ngModel" class="form-control" name="city"
+                                        id="city">
+                                    <strong *ngIf="city.touched && city.hasError('required')" class="text-danger">
+                                        City is required
+                                    </strong>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="pinCode">pinCode</label>
+                                    <input type="text" required ngModel [pattern]="validators.pincode"
+                                        #pinCode="ngModel" class="form-control" name="pinCode" id="pinCode">
+                                    <strong *ngIf="pinCode.touched && pinCode.hasError('required')" class="text-danger">
+                                        pinCode is required
+                                    </strong>
+                                    <strong *ngIf="pinCode.dirty && pinCode.hasError('pattern')" class="text-danger">
+                                        Pin Code imust be a 6-digit number
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address">Detailed Address</label>
+                            <textarea name="address" id="address" class="form-control" ngModel required maxlength="200"
+                                #address="ngModel"></textarea>
+                            <strong class="text-danger" *ngIf="address.touched && address.hasError('required')">
+                                Address is required
+                            </strong>
+                            <strong class="text-danger" *ngIf="address.dirty && address.hasError('maxlength')">
+                                Address should not exceed 200 characters
+                            </strong>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input ngModel required [pattern]="validators.password" type="password" name="password"
+                                id="password" class="form-control" #password="ngModel">
+                            <strong class="text-danger" *ngIf="password.touched && password.hasError('required')">
+                                Password is required</strong>
+                            <strong class="text-danger" *ngIf="password.dirty && password.hasError('pattern')">
+                                {{"Password must be 8+ characters with uppercase, lowercase, number & special
+                                character(@$!%*?&)"}} </strong>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input [disabled]="!password.valid" ngModel required type="text" name="confirmPassword"
+                                id="confirmPassword" class="form-control" #confirmPassword="ngModel">
+                            <strong class="text-danger"
+                                *ngIf="confirmPassword.touched && confirmPassword.hasError('required')"> Confirm
+                                Password is required</strong>
+                            <strong class="text-danger" *ngIf="!isPassSame && confirmPassword.invalid"> Password and
+                                ConfirmPassword must be the same
+                            </strong>
+                        </div>
+
+                        <div class="form-group form-check">
+                            <input ngModel required type="checkbox" name="terms" id="terms" #terms="ngModel"
+                                class="form-check-input">
+                            <label for="terms"> I agree to The terms and Conditions</label>
+                            <strong class="text-danger" *ngIf="terms.touched && terms.hasError('required')">
+                                You must agree before Submitting
+                            </strong>
+                        </div>
+                        <button [disabled]="!signUpForm.valid" type="submit"
+                            class="btn btn-md btn-primary">Submit</button>
                     </form>
                 </div>
             </div>
