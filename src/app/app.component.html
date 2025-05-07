@@ -1,1 +1,92 @@
-<p></p>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card border-muted">
+                <div class="card-header">
+                    <h3 class="card-title">Registration Form</h3>
+                </div>
+                <div class="card-body">
+                    <form #signUpForm="ngForm" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input required ngModel minlength="10" maxlength="40" #fullName="ngModel" type="text"
+                                name="fullName" class="form-control" id="fullName" />
+                            <strong *ngIf="fullName.touched && fullName.hasError('required')" class="text-danger">
+                                Full Name is required
+                            </strong>
+                            <ng-container *ngIf="fullName.dirty">
+                                <strong class="text-danger" *ngIf="fullName.hasError('minlength')">
+                                    Minimum Length should be 10 and Maximum length should be 40
+                                </strong>
+                                <strong class="text-danger" *ngIf="fullName.hasError('maxlength')">
+                                    Maximum Length should be 40
+                                </strong>
+                            </ng-container>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="userName">User Name</label>
+                            <input required ngModel minlength="6" maxlength="12" #userName="ngModel" type="text"
+                                name="userName" [pattern]="validators.username" class="form-control" id="userName" />
+                            <strong *ngIf="userName.touched && userName.hasError('required')" class="text-danger">
+                                UserName is required
+                            </strong>
+                            <ng-container *ngIf="userName.dirty">
+                                <strong class="text-danger" *ngIf="userName.hasError('minlength')">
+                                    Minimum Length should be 6 and Maximum length should be 12
+                                </strong>
+                                <strong class="text-danger" *ngIf="userName.hasError('maxlength')">
+                                    Maximum length should be 12
+                                </strong>
+                                <strong class="text-danger" *ngIf="userName.hasError('pattern')">
+                                    Onlu letters, numbers, and underscores are allowed
+                                </strong>
+                            </ng-container>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Id</label>
+                            <input required ngModel #email="ngModel" type="text" name="email"
+                                [pattern]="validators.email" class="form-control" id="email" />
+                            <strong *ngIf="email.touched && email.hasError('required')" class="text-danger">
+                                email Id is required
+                            </strong>
+                            <strong class="text-danger" *ngIf="email.dirty && email.hasError('pattern')">
+                                please enter a valid email Id({{'abc@xyz.com'}})
+                            </strong>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phoneNo">Phone Number</label>
+                            <input required ngModel #phoneNo="ngModel" type="text" name="phoneNo"
+                                [pattern]="validators.phoneNo" class="form-control" id="phoneNo" />
+                            <strong *ngIf="phoneNo.touched && phoneNo.hasError('required')" class="text-danger">
+                                Phone Number is required
+                            </strong>
+                            <strong class="text-danger" *ngIf="phoneNo.dirty && phoneNo.hasError('pattern')">
+                                please enter a valid 10-digit mobile number
+                            </strong>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form-label d-block">Gender</label>
+
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="male" value="male" id="male" #gender="ngModel" required ngModel class="form-check-input">
+                                <label class="form-check-label" for="male">
+                                    Male
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="female" value="female" id="female" #gender="ngModel" required ngModel class="form-check-input">
+                                <label class="form-check-label" for="female">
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,10 +19,17 @@ export class AppComponent implements OnInit {
     username: '^[a-zA-Z0-9_]+$',
     email: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$',
     pincode: '^[1-9][0-9]{5}$',
-    phoneNo: '^(+91[-s]?)?[6-9][0-9]{9}$',
+    phoneNo: '^[6-9][0-9]{9}$',
   };
 
+  countries: Array<string> = countries
+  states: Array<string> = states
+  @ViewChild('signUpForm') signUpForm!: NgForm
   constructor() {}
 
   ngOnInit(): void {}
+
+  onSubmit(){
+
+  }
 }
